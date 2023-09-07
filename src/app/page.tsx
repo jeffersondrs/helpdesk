@@ -3,6 +3,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { setName } from "../store/user-slice";
+import Link from "next/link";
 
 export default function Home() {
   const router = useRouter();
@@ -18,7 +19,9 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-row items-center justify-start sm:flex-col">
       <aside className="flex flex-col items-center justify-center bg-black w-96 h-screen sm:h-32">
-        <h1 className="text-4xl text-white font-bold">Help Desk</h1>
+
+          <h1 className="text-4xl text-white font-bold">Help Desk</h1>
+        
       </aside>
       <section className="flex flex-col items-center justify-center bg-gray-100 w-full h-screen sm:w-full sm:h-full">
         <h1 className="text-3xl sm:text-xl text-black font-bold py-3 uppercase">

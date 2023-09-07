@@ -11,6 +11,7 @@ interface Call {
   status: string;
   description: string;
   userName: string;
+  priority?: string | undefined;
 }
 
 export default function CallCenter() {
@@ -23,7 +24,23 @@ export default function CallCenter() {
     status: "",
     description: "",
     userName: name,
+    priority: "",
   });
+
+  const handleBgColorSelect = (priority: string | undefined) => {
+    switch (priority) {
+      case "baixa":
+        return "bg-blue-200";
+      case "média":
+        return "bg-blue-300";
+      case "alta":
+        return "bg-blue-500";
+      case "urgente":
+        return "bg-red-600";
+      default:
+        return "bg-blue-200";
+    }
+  };
 
   const handleNewCall = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -41,26 +58,69 @@ export default function CallCenter() {
         className="flex flex-col items-center justify-center bg-white sm:w-full sm:h-full gap-1 border border-gray-100 p-5"
         onSubmit={handleNewCall}
       >
-        <input
-          className="border-2 border-gray-300 w-96 h-10 sm:w-64 rounded-lg px-4"
-          type="text"
-          placeholder="Título"
-          onChange={(event) => setCall({ ...call, title: event.target.value })}
-        />
-        <input
+        <label className="text-left flex flex-col items-start justify-start w-full">
+          Título
+          <input
+            className="border-2 border-gray-300 w-96 h-10 sm:w-64 rounded-sm px-4"
+            type="text"
+            placeholder="Título"
+            onChange={(event) =>
+              setCall({ ...call, title: event.target.value })
+            }
+          />
+        </label>
+        {/* <input
           className="border-2 border-gray-300 w-96 h-10 sm:w-64 rounded-lg px-4"
           type="text"
           placeholder="Status"
           onChange={(event) => setCall({ ...call, status: event.target.value })}
-        />
-        <textarea
-          className="border-2 border-gray-300 w-96 h-40 sm:w-64 rounded-sm text-left
+        /> */}
+        <label className="text-left flex flex-col items-start justify-start w-full">
+          Status
+          <select
+            className="border-2 border-gray-300 w-96 h-10 sm:w-64 rounded-sm px-4"
+            onChange={(event) =>
+              setCall({ ...call, status: event.target.value })
+            }
+          >
+            <option value="Aberto">Aberto</option>
+          </select>
+        </label>
+        <label className="text-left flex flex-col items-start justify-start w-full">
+          Prioridade
+          <select
+            className={`border-2 border-gray-300 w-96 h-10 sm:w-64 px-4
+            rounded-sm ${handleBgColorSelect(call.priority)}`}
+            onChange={(event) => {
+              setCall({ ...call, priority: event.target.value });
+              handleBgColorSelect(event.target.value);
+            }}
+          >
+            <option className="bg-blue-200" value="baixa">
+              Baixa
+            </option>
+            <option className="bg-blue-300" value="média">
+              Média
+            </option>
+            <option className="bg-blue-500" value="alta">
+              Alta
+            </option>
+            <option className="bg-red-600" value="urgente">
+              Urgente
+            </option>
+          </select>
+        </label>
+        <label className="text-left flex flex-col items-start justify-start w-full">
+          Descrição
+          <textarea
+            className="border-2 border-gray-300 w-96 h-40 sm:w-64 rounded-sm text-left
             p-2 min-h-32 max-h-32 resize-none overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100"
-          placeholder="Descrição"
-          onChange={(event) =>
-            setCall({ ...call, description: event.target.value })
-          }
-        />
+            placeholder="Descrição"
+            onChange={(event) =>
+              setCall({ ...call, description: event.target.value })
+            }
+          />
+        </label>
         <button
           className="border-2 border-gray-300 w-40 h-10 sm:w-64 rounded-lg px-4"
           type="submit"

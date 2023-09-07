@@ -5,6 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { Search } from "lucide-react";
+import Link from "next/link";
 
 export default function Navigation({
   children,
@@ -18,7 +19,9 @@ export default function Navigation({
   return (
     <>
       <nav className="flex flex-row items-center justify-between w-full h-16 sm:h-16 border-b bg-gray-50">
-        <h1 className="text-2xl text-gray-900 font-bold px-4">Help Desk</h1>
+        <Link href="/home" className="cursor-pointer">
+          <h1 className="text-2xl text-gray-900 font-bold px-4">Help Desk</h1>
+        </Link>
         {pathname === "/home/newcall" && (
           <button
             className="border-2 border-gray-300 w-20 h-10 rounded-lg px-4"
@@ -32,7 +35,7 @@ export default function Navigation({
             Olá {name.split(" ")[0]}!
           </h1>
         </div>
-        
+
         <button
           className="border-2 border-gray-300 w-20 h-10 rounded-lg px-4"
           onClick={() => router.push("/")}

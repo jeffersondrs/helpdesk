@@ -6,6 +6,7 @@ export interface CallState {
   title: string;
   status: string;
   description: string;
+  priority?: string;
   userName?: string;
   createdAt: string;
   updatedAt: string;
@@ -29,6 +30,7 @@ const callSlice = createSlice({
         title: string;
         description: string;
         userName: string;
+        priority?: string;
       }>
     ) => {
       const newCall: CallState = {
@@ -37,6 +39,7 @@ const callSlice = createSlice({
         status: "aberto",
         userName: action.payload.userName,
         description: action.payload.description,
+        priority: "baixa",
         createdAt: Date.now().toString(),
         updatedAt: Date.now().toString(),
       };
