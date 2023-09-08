@@ -37,7 +37,7 @@ export default function Navigation({
         </div>
 
         <button
-          className="border-2 border-gray-300 w-20 h-10 rounded-lg px-4"
+          className="border-2 border-gray-300 w-20 h-10 sm:w-16 rounded-lg px-4 sm:text-xs"
           onClick={() => router.push("/")}
         >
           Sair

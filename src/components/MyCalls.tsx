@@ -1,9 +1,15 @@
 import React from "react";
 import { useRouter } from "next/navigation";
-import { CallState } from "@/store/call-slice";
+import { CallState, startCallHandlingCall } from "@/store/call-slice";
+import { assignCall } from "@/store/user-slice";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/store/store";
 
 export default function MyCalls({ calls }: { calls: CallState[] }) {
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  const { name, role, id } = useSelector((state: RootState) => state.user);
 
   const handleDate = (date: number) => {
     const newDate = new Date(date);
@@ -16,27 +22,79 @@ export default function MyCalls({ calls }: { calls: CallState[] }) {
     return formato;
   };
 
+  const iniciarAtendimento = (callId: string) => {
+    if (role !== "admin" || !name) {
+      return;
+    }
+    if (role === "admin" && name) {
+      dispatch(assignCall({ callId }));
+      dispatch(
+        startCallHandlingCall({
+          id: callId,
+          assignee: id?.toString(),
+          assignmentDate: Date.now().toString(),
+          status: "pendente",
+          resolutionStatus: "em andamento",
+          updatedAt: Date.now().toString(),
+        })
+      );
+    }
+
+    router.push(`/home/${callId}`);
+  };
+
   return (
     <tbody>
       {calls.map((call) => (
         <>
-          <tr>
-            <td className="border px-4 py-2">
-              {call?.userName?.split(" ")[0]}
+          <tr
+            className={`${
+              call.status === "aberto"
+                ? "bg-blue-100"
+                : call.status === "pendente"
+                ? "bg-orange-200"
+                : "bg-green-200"
+            } hover:bg-gray-100 cursor-pointer`}
+            onClick={() => router.push(`/home/${call.id}`)}
+          >
+            <td className="border px-4 py-2 capitalize">{call.title}</td>
+            <td className="border px-4 py-2 capitalize">{call.status}</td>
+            <td className="border px-4 py-2 capitalize">{call.priority}</td>
+            <td className="border px-4 py-2 capitalize">
+              {call.userName?.split(" ")[0]}
             </td>
-            <td className="border px-4 py-2">{call.title}</td>
-            <td className="border px-4 py-2">{call.status}</td>
             <td className="border px-4 py-2">
               {handleDate(Number(call.createdAt))}
             </td>
             <td className="border px-4 py-2">
-              <button
-                className="border-2 border-gray-300 h-10 rounded-lg px-4"
-                onClick={() => router.push(`/home/${call.id}`)}
-              >
-                Visualizar
-              </button>
+              {handleDate(Number(call.updatedAt))}
             </td>
+            {role === "admin" && (
+              <td className="border px-4 py-2">
+                {call.assignee
+                  ? `${call.assignee} (${handleDate(
+                      Number(call.assignmentDate)
+                    )})`
+                  : "Não atribuído"}
+              </td>
+            )}
+
+            {role === "admin" && (
+              <td className="border px-4 py-2">
+                {call.assignee ? (
+                  `${call.assignee} (${handleDate(
+                    Number(call.assignmentDate)
+                  )})`
+                ) : (
+                  <button
+                    className="border-2 border-gray-300 h-10 rounded-lg px-2"
+                    onClick={() => iniciarAtendimento(call.id)}
+                  >
+                    Iniciar
+                  </button>
+                )}
+              </td>
+            )}
           </tr>
         </>
       ))}

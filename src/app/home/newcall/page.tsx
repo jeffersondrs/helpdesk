@@ -8,10 +8,10 @@ import { RootState } from "@/store/store";
 
 interface Call {
   title: string;
-  status: string;
+  status: "aberto" | "pendente" | "fechado";
   description: string;
   userName: string;
-  priority?: string | undefined;
+  priority?: "baixa" | "média" | "alta" | "urgente";
 }
 
 export default function CallCenter() {
@@ -21,10 +21,10 @@ export default function CallCenter() {
 
   const [call, setCall] = useState<Call>({
     title: "",
-    status: "",
+    status: "aberto",
     description: "",
     userName: name,
-    priority: "",
+    priority: "baixa",
   });
 
   const handleBgColorSelect = (priority: string | undefined) => {
@@ -69,31 +69,35 @@ export default function CallCenter() {
             }
           />
         </label>
-        {/* <input
-          className="border-2 border-gray-300 w-96 h-10 sm:w-64 rounded-lg px-4"
-          type="text"
-          placeholder="Status"
-          onChange={(event) => setCall({ ...call, status: event.target.value })}
-        /> */}
         <label className="text-left flex flex-col items-start justify-start w-full">
           Status
           <select
             className="border-2 border-gray-300 w-96 h-10 sm:w-64 rounded-sm px-4"
             onChange={(event) =>
-              setCall({ ...call, status: event.target.value })
+              setCall({
+                ...call,
+                status: event.target.value ? "aberto" : "pendente",
+              })
             }
           >
-            <option value="Aberto">Aberto</option>
+            <option value="open">Aberto</option>
           </select>
         </label>
         <label className="text-left flex flex-col items-start justify-start w-full">
           Prioridade
           <select
-            className={`border-2 border-gray-300 w-96 h-10 sm:w-64 px-4
-            rounded-sm ${handleBgColorSelect(call.priority)}`}
+            className={`border-2 border-gray-300 w-96 h-10 sm:w-64 px-4 rounded-sm ${handleBgColorSelect(
+              call.priority
+            )}`}
             onChange={(event) => {
-              setCall({ ...call, priority: event.target.value });
-              handleBgColorSelect(event.target.value);
+              setCall({
+                ...call,
+                priority: event.target.value as
+                  | "baixa"
+                  | "média"
+                  | "alta"
+                  | "urgente",
+              });
             }}
           >
             <option className="bg-blue-200" value="baixa">
