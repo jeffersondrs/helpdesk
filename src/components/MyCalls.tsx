@@ -45,8 +45,8 @@ export default function MyCalls({ calls }: { calls: CallState[] }) {
 
   return (
     <tbody>
-      {calls.map((call) => (
-        <>
+      {calls.length > 0 ? (
+        calls.map((call) => (
           <tr
             className={`${
               call.status === "aberto"
@@ -56,6 +56,7 @@ export default function MyCalls({ calls }: { calls: CallState[] }) {
                 : "bg-green-200"
             } hover:bg-gray-100 cursor-pointer`}
             onClick={() => router.push(`/home/${call.id}`)}
+            key={call.id}
           >
             <td className="border px-4 py-2 capitalize">{call.title}</td>
             <td className="border px-4 py-2 capitalize">{call.status}</td>
@@ -96,8 +97,14 @@ export default function MyCalls({ calls }: { calls: CallState[] }) {
               </td>
             )}
           </tr>
-        </>
-      ))}
+        ))
+      ) : (
+        <tr className="bg-gray-100 ">
+          <td colSpan={8} className="text-center border px-4 py-2">
+            Não há chamados abertos!
+          </td>
+        </tr>
+      )}
     </tbody>
   );
 }
