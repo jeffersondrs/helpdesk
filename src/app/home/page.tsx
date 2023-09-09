@@ -39,6 +39,7 @@ export default function Home() {
   };
 
   const filteredData = calls.filter(filterDataCalls);
+  console.log(filteredData);
 
   const filteredDataAssigned = calls.filter(filterCallForAssigned);
 
@@ -69,23 +70,23 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flex-col items-center justify-start bg-white w-full sm:w-full sm:h-full">
-            <h1 className="text-2xl sm:text-xl text-black font-bold py-3 uppercase">
+            <h1 className="text-xl sm:text-base text-black font-bold py-3 uppercase">
               Meus Chamados
             </h1>
             <table className="table-auto">
               <thead>
                 <tr>
-                  <th className="border px-4 py-2">Título</th>
-                  <th className="border px-4 py-2">Status</th>
-                  <th className="border px-4 py-2">Prioridade</th>
-                  <th className="border px-4 py-2">Usuário</th>
-                  <th className="border px-4 py-2">Criação</th>
-                  <th className="border px-4 py-2">Atualização</th>
+                  <th className="border px-4 py-2 text-sm">Título</th>
+                  <th className="border px-4 py-2 text-sm">Status</th>
+                  <th className="border px-4 py-2 text-sm">Prioridade</th>
+                  <th className="border px-4 py-2 text-sm">Usuário</th>
+                  <th className="border px-4 py-2 text-sm">Criação</th>
+                  <th className="border px-4 py-2 text-sm">Atualização</th>
                   {role === "admin" && (
-                    <th className="border px-4 py-2">Atribuído</th>
+                    <th className="border px-4 py-2 text-sm">Atribuído</th>
                   )}
                   {role === "admin" && (
-                    <th className="border px-4 py-2">Ações</th>
+                    <th className="border px-4 py-2 text-sm">Ações</th>
                   )}
                 </tr>
               </thead>
@@ -93,23 +94,26 @@ export default function Home() {
             </table>
             {role === "admin" && (
               <>
-                <h1 className="text-2xl sm:text-xl text-black font-bold py-3 uppercase">
+                <h1 className="text-xl sm:text-base text-black font-bold py-3 uppercase">
                   Em atendimento!
                 </h1>
                 <table className="table-auto">
                   <thead>
                     <tr>
-                      <th className="border px-4 py-2">Título</th>
-                      <th className="border px-4 py-2">Status</th>
-                      <th className="border px-4 py-2">Prioridade</th>
-                      <th className="border px-4 py-2">Criação</th>
-                      <th className="border px-4 py-2">Atualização</th>
-                      <th className="border px-4 py-2">Solicitante</th>
+                      <th className="border px-4 py-2 text-sm">Título</th>
+                      <th className="border px-4 py-2 text-sm">Status</th>
+                      <th className="border px-4 py-2 text-sm">Prioridade</th>
+                      <th className="border px-4 py-2 text-sm">Criação</th>
+                      <th className="border px-4 py-2 text-sm">Atualização</th>
+                      <th className="border px-4 py-2 text-sm">Solicitante</th>
                       {role === "admin" && (
-                        <th className="border px-4 py-2">Atribuído</th>
+                        <th className="border px-4 py-2 text-sm">Atribuído</th>
                       )}
                       {role === "admin" && (
-                        <th className="border px-4 py-2">Ações</th>
+                        <th className="border px-4 py-2 text-sm">Resolução</th>
+                      )}
+                      {role === "admin" && (
+                        <th className="border px-4 py-2 text-sm">Ações</th>
                       )}
                     </tr>
                   </thead>

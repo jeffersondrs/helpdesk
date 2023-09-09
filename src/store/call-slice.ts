@@ -114,10 +114,27 @@ const callSlice = createSlice({
         call.resolutionStatus = action.payload.resolutionStatus;
       }
     },
+
+    setResolutionStatus: (
+      state,
+      action: PayloadAction<{
+        id: string;
+        updatedAt: string;
+        status: "aberto" | "pendente" | "fechado";
+        resolutionStatus: "resolvido" | "não resolvido" | "em andamento";
+      }>
+    ) => {
+      const call = state.calls.find((call) => call.id === action.payload.id);
+      if (call) {
+        call.updatedAt = action.payload.updatedAt;
+        call.resolutionStatus = action.payload.resolutionStatus;
+        call.status = action.payload.status;
+      }
+    },
   },
 });
 
-export const { setCalls, deleteCall, updateCall, startCallHandlingCall } =
+export const { setCalls, deleteCall, updateCall, startCallHandlingCall, setResolutionStatus } =
   callSlice.actions;
 
 export const callReducer = callSlice.reducer;

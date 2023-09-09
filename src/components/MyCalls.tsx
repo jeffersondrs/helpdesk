@@ -58,37 +58,43 @@ export default function MyCalls({ calls }: { calls: CallState[] }) {
             onClick={() => router.push(`/home/${call.id}`)}
             key={call.id}
           >
-            <td className="border px-4 py-2 capitalize">{call.title}</td>
-            <td className="border px-4 py-2 capitalize">{call.status}</td>
-            <td className="border px-4 py-2 capitalize">{call.priority}</td>
-            <td className="border px-4 py-2 capitalize">
+            <td className="border px-4 py-2 capitalize text-sm">
+              {call.title}
+            </td>
+            <td className="border px-4 py-2 capitalize text-sm">
+              {call.status}
+            </td>
+            <td className="border px-4 py-2 capitalize text-sm">
+              {call.priority}
+            </td>
+            <td className="border px-4 py-2 capitalize text-sm">
               {call.userName?.split(" ")[0]}
             </td>
-            <td className="border px-4 py-2">
+            <td className="border px-4 py-2  text-sm">
               {handleDate(Number(call.createdAt))}
             </td>
-            <td className="border px-4 py-2">
+            <td className="border px-4 py-2  text-sm">
               {handleDate(Number(call.updatedAt))}
             </td>
             {role === "admin" && (
-              <td className="border px-4 py-2">
+              <td className="border px-4 py-2  text-sm">
                 {call.assignee
-                  ? `${call.assignee} (${handleDate(
+                  ? `${handleDate(
                       Number(call.assignmentDate)
-                    )})`
+                    )}`
                   : "Não atribuído"}
               </td>
             )}
 
             {role === "admin" && (
-              <td className="border px-4 py-2">
+              <td className="border px-4 py-2 text-sm">
                 {call.assignee ? (
-                  `${call.assignee} (${handleDate(
+                  `${handleDate(
                     Number(call.assignmentDate)
-                  )})`
+                  )}`
                 ) : (
                   <button
-                    className="border-2 border-gray-300 h-10 rounded-lg px-2"
+                    className="border-2 border-gray-300 h-10 rounded-lg px-2 text-sm"
                     onClick={() => iniciarAtendimento(call.id)}
                   >
                     Iniciar

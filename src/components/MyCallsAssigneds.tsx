@@ -1,19 +1,19 @@
 "use client";
 
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/store/store";
 import { CallState } from "@/store/call-slice";
+import { setResolutionStatus } from "@/store/call-slice";
 
 export default function MyCallsAssigneds() {
   const { calls } = useSelector((state: RootState) => state.call);
-
-  console.log(calls.map((call) => call.id));
-  const { role, assignedCalls, id } = useSelector(
+  const dispatch = useDispatch();
+  const { role, assignedCalls, id, name } = useSelector(
     (state: RootState) => state.user
   );
   const assignedCallsIds = assignedCalls.map((call) => call);
-  console.log(id);
+
   const filterCallForAssigned = (
     calls: CallState[],
     assignedCallIds: string[]
@@ -32,6 +32,22 @@ export default function MyCallsAssigneds() {
     return formato;
   };
 
+  const handleResolveCall = (callId: string) => {
+    if (role !== "admin" || !name) {
+      return;
+    }
+    if (role === "admin" && name) {
+      dispatch(
+        setResolutionStatus({
+          id: callId,
+          status: "fechado",
+          resolutionStatus: "resolvido",
+          updatedAt: Date.now().toString(),
+        })
+      );
+    }
+  };
+
   return (
     <tbody>
       {filteredData.length > 0 ? (
@@ -43,12 +59,13 @@ export default function MyCallsAssigneds() {
                 : call.status === "pendente"
                 ? "bg-orange-200"
                 : "bg-green-200"
-            } hover:bg-gray-100 cursor-pointer`}
+            } hover:bg-gray-300 cursor-pointer tansform
+            transition duration-300 ease-in-out`}
             key={call.id}
           >
-            <td className="border px-4 py-2 capitalize">{call.title}</td>
-            <td className="border px-4 py-2 capitalize">{call.status}</td>
-            <td className="border px-4 py-2 capitalize">{call.priority}</td>
+            <td className="border px-4 py-2 capitalize text-sm">{call.title}</td>
+            <td className="border px-4 py-2 capitalize text-sm">{call.status}</td>
+            <td className="border px-4 py-2 capitalize text-sm">{call.priority}</td>
 
             <td className="border px-4 py-2">
               {handleDate(Number(call.createdAt))}
@@ -57,14 +74,25 @@ export default function MyCallsAssigneds() {
               {handleDate(Number(call.updatedAt))}
             </td>
             <td className="border px-4 py-2">{call.userName}</td>
-            <td className="border px-4 py-2 capitalize">
-              {call.assignee ? call.assignee : "Não atribuído"}
+            <td className="border px-4 py-2 capitalize text-sm">
+              {call.assignee ? name : "Não atribuído"}
+            </td>
+            <td className="border px-4 py-2">
+              {call.resolutionStatus ? call.resolutionStatus : "Não resolvido"}
+            </td>
+            <td className="border px-4 py-2">
+              <button
+                className="border px-4 py-2"
+                onClick={() => handleResolveCall(call.id)}
+              >
+                Resolvido
+              </button>
             </td>
           </tr>
         ))
       ) : (
         <tr>
-          <td colSpan={8} className="text-center border px-4 py-2">
+          <td colSpan={9} className="text-center border px-4 py-2">
             Não há chamados atribuídos a você
           </td>
         </tr>
