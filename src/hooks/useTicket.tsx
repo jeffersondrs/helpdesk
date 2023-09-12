@@ -3,6 +3,7 @@ import axios from "axios";
 import { z } from "zod";
 import { TicketSchema } from "../utils/ticket-schema";
 import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type Ticket = z.infer<typeof TicketSchema>;
 
@@ -15,7 +16,9 @@ export const useTicket = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<Ticket>();
+  } = useForm<Ticket>({
+    resolver: zodResolver(TicketSchema),
+  });
 
   const onSubmit = async (data: Ticket) => {
     try {
@@ -23,6 +26,8 @@ export const useTicket = () => {
       const response = await axios.post(`${apiUrl}/ticket`, {
         ...data,
         createdAt: Date.now().toString(),
+        status: "aberto",
+        updatedAt: Date.now().toString(),
       });
 
       if (response.status === 201) {

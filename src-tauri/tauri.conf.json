@@ -7,8 +7,8 @@
     "distDir": "../out"
   },
   "package": {
-    "productName": "chamadosti",
-    "version": "0.1.0"
+    "productName": "help-desk.sc",
+    "version": "1.0.0"
   },
   "tauri": {
     "allowlist": {
@@ -22,14 +22,6 @@
         "depends": []
       },
       "externalBin": [],
-      "icon": [
-        "icons/32x32.png",
-        "icons/128x128.png",
-        "icons/128x128@2x.png",
-        "icons/icon.icns",
-        "icons/icon.ico"
-      ],
-      "identifier": "com.tauri.dev",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -40,12 +32,14 @@
       },
       "resources": [],
       "shortDescription": "",
-      "targets": "all",
       "windows": {
-        "certificateThumbprint": null,
-        "digestAlgorithm": "sha256",
-        "timestampUrl": ""
-      }
+        "webviewInstallMode": {
+          "type": "offlineInstaller"
+        }
+      },
+      "identifier": "com.tauri.app",
+      "icon": ["icons/32x32.png", "icons/128x128.png"],
+      "targets": "nsis"
     },
     "security": {
       "csp": null
@@ -58,7 +52,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "Help-desk-SC",
+        "title": "Hel-Desk-SC",
         "width": 1000
       }
     ]

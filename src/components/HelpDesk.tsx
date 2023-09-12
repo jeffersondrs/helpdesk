@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState } from "react";
 
 export default function HelpDesk() {
@@ -11,8 +12,6 @@ export default function HelpDesk() {
       setOpenSuport(true);
     }
   }
-
-  console.log(countClick);
 
   return (
     <div className="flex flex-col gap-2">
@@ -31,16 +30,18 @@ export default function HelpDesk() {
               placeholder="Usuário"
             />
             <input
-              type="text"
+              type="password"
               className="w-56 h-8 rounded-lg p-3 focus:outline-none focus:border-transparent"
               placeholder="Senha"
             />
-            <button
-              type="submit"
-              className="w-56 h-8 border-2 border-gray-600 rounded-lg text-gray-50"
-            >
-              Entrar
-            </button>
+            <Link href="/tickets">
+              <button
+                type="submit"
+                className="w-56 h-8 border-2 border-gray-600 rounded-lg text-gray-50"
+              >
+                Entrar
+              </button>
+            </Link>
           </form>
         )}
       </div>
