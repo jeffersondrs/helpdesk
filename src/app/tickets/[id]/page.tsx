@@ -143,7 +143,7 @@ export default function Ticket() {
           )}
         </form>
       </div>
-      <BackButton href="/tickets" />
+      <BackButton href="/tickets" text="Voltar" />
     </main>
   );
 }
