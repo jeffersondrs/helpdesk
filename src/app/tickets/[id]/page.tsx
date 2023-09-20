@@ -6,17 +6,20 @@ import Loading from "@/components/Loading";
 import { usePathname } from "next/navigation";
 import BackButton from "@/components/BackButton";
 import { useUpdateTicket } from "@/hooks/useUpdateTicket";
+import { CallState } from "@/types/global-types";
+import { ToastContainer } from "react-toastify";
 
 export default function Ticket() {
   const { data, isLoading } = useGetTickets();
   const pathname = usePathname();
   const id = pathname.split("/")[2];
-  const ticket = data?.find((ticket) => ticket?._id === id);
+  const ticket = data?.find((ticket: CallState) => ticket?._id === id);
   const { register, handleSubmit, onSubmit, errors } = useUpdateTicket({ id });
 
   return (
     <main className="flex flex-col justify-evenly items-center h-screen w-full">
       {isLoading && <Loading />}
+      <ToastContainer />
       <div className="flex flex-row justify-center items-center">
         <div
           key={ticket?.title}
@@ -28,7 +31,7 @@ export default function Ticket() {
         `}
         >
           <p>
-            <span className="font-bold">Quem criou o chamado: </span>
+            <span className="font-bold capitalize">Quem criou o chamado: </span>
             {ticket?.createdBy}
           </p>
           <p>
@@ -77,7 +80,7 @@ export default function Ticket() {
           onSubmit={handleSubmit(onSubmit)}
         >
           {ticket?.status === "aberto" && (
-            <>
+            <div>
               <input
                 type="text"
                 placeholder="Nome do atendente"
@@ -103,12 +106,12 @@ export default function Ticket() {
                   Em atendimento
                 </option>
               </select>
-            </>
+            </div>
           )}
           {ticket?.status === "pendente" && (
-            <>
+            <div>
               <select
-                className="border px-3 py-1 rounded-md flex flex-row-reverse items-center justify-center gap-2 mb-5 text-gray-950"
+                className="border px-3 py-1 rounded-md flex flex-row-reverse items-center justify-center mb-2 text-gray-950"
                 {...register("status", { required: true })}
               >
                 <option className="bg-green" value="fechado">
@@ -116,7 +119,7 @@ export default function Ticket() {
                 </option>
               </select>
               <select
-                className="border px-3 py-1 rounded-md flex flex-row-reverse items-center justify-center gap-2 mb-5 text-gray-950 w-full"
+                className="border px-2 py-1 rounded-md flex flex-row-reverse items-center justify-center mb-2 text-gray-950 w-full"
                 {...register("resolutionStatus", { required: true })}
               >
                 <option className="bg-green" value="resolvido">
@@ -126,12 +129,12 @@ export default function Ticket() {
                   Não resolvido
                 </option>
               </select>
-            </>
+            </div>
           )}
           {ticket?.status === "pendente" || ticket?.status === "aberto" ? (
             <button
               type="submit"
-              className="bg-gray-950 text-gray-50 rounded-md px-2 py-1 w-40 focus:outline-none focus:border-transparent"
+              className="bg-gray-950 text-gray-50 rounded-md px-2 py-1 w-32 focus:outline-none focus:border-transparent"
             >
               Enviar
             </button>

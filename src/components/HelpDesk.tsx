@@ -1,49 +1,27 @@
-"use client";
-import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 
 export default function HelpDesk() {
-  const [openSuport, setOpenSuport] = useState(false);
-  const [countClick, setCountClick] = useState(0);
-
-  function handleOpenSuport() {
-    setCountClick(countClick + 1);
-    if (countClick >= 3) {
-      setOpenSuport(true);
-    }
-  }
-
   return (
     <div className="flex flex-col gap-2">
-      <button
-        onClick={handleOpenSuport}
-        className="flex flex-col items-center justify-center w-56 h-32 rounded-lg transition duration-300 ease-in-out transform"
-      >
-        <h1 className="text-4xl text-white font-bold">Help Desk</h1>
-      </button>
-      <div className="h-40 ">
-        {openSuport && (
-          <form className="flex flex-col items-center justify-center gap-2">
-            <input
-              type="text"
-              className="w-56 h-8 rounded-lg p-3 focus:outline-none focus:border-transparent"
-              placeholder="Usuário"
-            />
-            <input
-              type="password"
-              className="w-56 h-8 rounded-lg p-3 focus:outline-none focus:border-transparent"
-              placeholder="Senha"
-            />
-            <Link href="/tickets">
-              <button
-                type="submit"
-                className="w-56 h-8 border-2 border-gray-600 rounded-lg text-gray-50"
-              >
-                Entrar
-              </button>
-            </Link>
-          </form>
-        )}
+      <div className="flex flex-col cursor-pointer">
+        <div className="h-16 flex flex-row justify-center items-end gap-3">
+          <div className="w-1 h-6 bg-gray-50 animate-[growUp_1s_ease-in-out] bottom-0 relative "></div>
+          <div className="w-1 h-6 bg-gray-50 animate-[growUp_1s_ease-in-out] bottom-0 relative "></div>
+          <div className="w-1 h-5 bg-gray-50 animate-[growUp_1.1s_ease-in-out] bottom-0 relative transition duration-300 ease-in-out transform"></div>
+          <div className="w-1 h-5 bg-gray-50 animate-[growUp_1.1s_ease-in-out] bottom-0 relative transition duration-300 ease-in-out transform"></div>
+          <div className="w-1 h-10 bg-gray-50 animate-[growUp_0.5s_ease-in-out] bottom-0 relative transition duration-300 ease-in-out transform"></div>
+          <div className="w-1 h-2 bg-gray-50 animate-[growUp_2s_ease-in-out] bottom-0 relative transition duration-300 ease-in-out transform"></div>
+          <div className="w-1 h-2 bg-gray-50 animate-[growUp_2s_ease-in-out] bottom-0 relative transition duration-300 ease-in-out transform"></div>
+          <div className="w-1 h-8 bg-gray-50 animate-[growUp_0.4s_ease-in-out] bottom-0 relative transition duration-300 ease-in-out transform"></div>
+          <div className="w-1 h-8 bg-gray-50 animate-[growUp_0.4s_ease-in-out] bottom-0 relative transition duration-300 ease-in-out transform"></div>
+          <div className="w-1 h-5 bg-gray-50 animate-[growUp_1.1s_ease-in-out] bottom-0 relative transition duration-300 ease-in-out transform"></div>
+          <div className="w-1 h-5 bg-gray-50 animate-[growUp_1.1s_ease-in-out] bottom-0 relative transition duration-300 ease-in-out transform"></div>
+          <div className="w-1 h-7 bg-gray-50 animate-[growUp_0.3s_ease-in-out] bottom-0 relative transition duration-300 ease-in-out transform"></div>
+          <div className="w-1 h-7 bg-gray-50 animate-[growUp_0.3s_ease-in-out] bottom-0 relative transition duration-300 ease-in-out transform"></div>
+        </div>
+        <div className="flex flex-row justify-center items-end gap-3 py-5">
+          <h1 className="text-4xl text-white font-bold">Help Desk</h1>
+        </div>
       </div>
     </div>
   );

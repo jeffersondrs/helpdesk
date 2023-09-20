@@ -21,6 +21,15 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
     },
+    keyframes: {
+      growUp: {
+        "0%": { height: "1px", opacity: "0" },
+        "100%": { opacity: "1" },
+      },
+    },
+    animation: {
+      growUp: "growUp 1s ease-in-out",
+    },
   },
   plugins: [],
 };

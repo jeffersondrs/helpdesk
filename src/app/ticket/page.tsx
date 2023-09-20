@@ -4,23 +4,26 @@ import React from "react";
 import { useTicket } from "@/hooks/useTicket";
 import Loading from "@/components/Loading";
 import BackButton from "@/components/BackButton";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Next() {
   const { register, handleSubmit, onSubmit, errors, loading } = useTicket();
 
   return (
     <main className="flex min-h-screen flex-row items-center justify-start">
+      <ToastContainer bodyClassName={"text-sm font-bold text-gray-900 z-50"} />
       <section className="flex flex-col items-center justify-center w-full h-screen bg-white">
         <div className="flex-1 flex flex-col justify-center items-center">
           {loading ? (
             <Loading />
           ) : (
             <>
-              <h1 className="text-2xl text-gray-900 font-bold mb-4 py-10">
+              <h1 className="text-2xl text-gray-900 font-bold mb-2 py-5 cursor-pointer">
                 Abrir novo chamado
               </h1>
               <form
-                className="flex flex-col items-center justify-center flex-1 border flex-wrap gap-5"
+                className="flex flex-col items-center justify-center flex-1 border flex-wrap gap-3"
                 onSubmit={handleSubmit(onSubmit)}
               >
                 <div className="flex flex-row items-center justify-center flex-wrap">
@@ -222,7 +225,7 @@ export default function Next() {
           )}
         </div>
         <div className="py-5">
-          <BackButton href="/" />
+          <BackButton href="/tickets" text="Voltar" />
         </div>
       </section>
     </main>
