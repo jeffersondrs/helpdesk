@@ -1,9 +1,35 @@
+"use client";
+
 import Link from "next/link";
-import React from "react";
-import NewTicket from "../components/NewTicket";
+import React, { useEffect } from "react";
 import HelpDesk from "@/components/HelpDesk";
 
 export default function Home() {
+  async function handleUsers() {
+    const response = await fetch("api/users", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+  }
+
+  async function createUser() {
+    const response = await fetch("api/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
+  useEffect(() => {
+    handleUsers();
+    createUser();
+  }, []);
+
   return (
     <main className="flex min-h-screen flex-row items-center justify-start sm:flex-col">
       <aside className="flex flex-col items-center justify-center bg-black w-96 h-screen sm:h-32 sm:w-full">
