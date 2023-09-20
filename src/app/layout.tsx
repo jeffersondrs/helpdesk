@@ -1,10 +1,7 @@
-"use client";
-
 import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import { QueryClient, QueryClientProvider } from "react-query";
-
+import QueryProvider from "@/utils/QueryProvider";
 const poppins = Poppins({ subsets: ["latin-ext"], weight: ["400"] });
 
 export const metadata: Metadata = {
@@ -17,13 +14,10 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const queryClient = new QueryClient();
   return (
     <html lang="pt-BR">
       <body className={poppins.className}>
-        <QueryClientProvider client={queryClient}>
-          {children}
-        </QueryClientProvider>
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );
