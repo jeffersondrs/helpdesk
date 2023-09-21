@@ -1,10 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import HelpDesk from "@/components/HelpDesk";
+type User = {
+  name: string;
+  email: string;
+  password: string;
+  role: "ADMIN" | "USER";
+};
 
 export default function Home() {
+  const router = useRouter();
+
   async function handleUsers() {
     const response = await fetch("api/users", {
       method: "GET",
@@ -16,18 +25,28 @@ export default function Home() {
     console.log(data);
   }
 
-  async function createUser() {
-    const response = await fetch("api/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  }
+  const createUser = async (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    try {
+      const body = {
+        name: "TEste ",
+        email: "tssestando@gmail.com",
+        password: "123123",
+        role: "USER",
+      };
+      await fetch(`/api/create`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      router.push("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     handleUsers();
-    createUser();
   }, []);
 
   return (
@@ -66,6 +85,12 @@ export default function Home() {
             </button>
           </Link>
         </form>
+        <button
+          onClick={createUser}
+          className="rounded-lg w-40 py-1 bg-black text-white font-bold"
+        >
+          Criar usuário
+        </button>
         {/* <Link
           href={{
             pathname: "/ticket",

@@ -1,14 +1,14 @@
+import type { NextApiRequest, NextApiResponse } from "next";
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
-  const user = await prisma.user.create({
+export async function POST(req: NextApiRequest, res: NextApiResponse) {
+  const result = await prisma.user.create({
     data: {
-      name: "Teste4",
-      email: "teste4@gmail.com",
-      password: "124456",
-      role: "ADMIN",
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+      role: req.body.role,
     },
   });
-  return NextResponse.json(user);
+  return res.status(201).json(result);
 }
