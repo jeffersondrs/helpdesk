@@ -19,7 +19,7 @@ export default function Ticket() {
 
   return (
     <Aside>
-      <section className="flex-1 justify-center items-center flex flex-col gap-3">
+      <section className="w-full h-full flex flex-col justify-center items-center gap-3">
         {isLoading && <Loading />}
         <ToastContainer />
         <div className="flex flex-row justify-center items-center">
@@ -33,44 +33,42 @@ export default function Ticket() {
         `}
           >
             <p>
-              <span className="font-bold capitalize">
-                Quem criou o chamado:{" "}
-              </span>
+              <span className="font-bold text-sm">Criado por: </span>
               {ticket?.createdBy}
             </p>
             <p>
-              <span className="font-bold">Whatsapp: </span>
+              <span className="font-bold  text-sm">Whatsapp: </span>
               {ticket?.phone}
             </p>
             <div className="flex flex-row gap-1">
-              <span className="font-bold">Setor onde ocorreu: </span>
-              <p className="capitalize">{ticket?.sector}</p>
+              <span className="font-bold  text-sm">Setor onde ocorreu: </span>
+              <p className="capitalize  text-sm">{ticket?.sector}</p>
             </div>
             <p>
-              <span className="font-bold">Título: </span>
+              <span className="font-bold text-sm">Título: </span>
               {ticket?.title}
             </p>
             <div className="flex flex-col">
-              <span className="font-bold">Descrição: </span>
-              <p className="break-words overflow-auto whitespace-wrap w-96 border max-h-40 p-2">
+              <span className="font-bold text-sm">Descrição: </span>
+              <p className="break-words overflow-auto whitespace-wrap w-72 border max-h-40 p-2  text-sm">
                 {ticket?.description}
               </p>
             </div>
-            <div className="flex flex-row gap-1">
-              <span className="font-bold">Status: </span>
-              <p className="capitalize">{ticket?.status}</p>
+            <div className="flex flex-row gap-1  text-sm">
+              <span className="font-bold text-sm">Status: </span>
+              <p className="capitalize  text-sm">{ticket?.status}</p>
             </div>
             <p>
-              <span className="font-bold">Criado em: </span>
+              <span className="font-bold  text-sm">Criado em: </span>
               {new Date(Number(ticket?.createdAt)).toLocaleDateString("pt-BR")}
             </p>
             <p>
-              <span className="font-bold">Atualizado em: </span>
+              <span className="font-bold text-sm">Atualizado em: </span>
               {new Date(Number(ticket?.updatedAt)).toLocaleDateString("pt-BR")}
             </p>
             {ticket?.resolutionBy && (
               <p>
-                <span className="font-bold">
+                <span className="font-bold text-sm">
                   {ticket?.resolutionBy === "em andamento"
                     ? "Em atendimento por: "
                     : "Resolvido por: "}
@@ -80,7 +78,7 @@ export default function Ticket() {
             )}
           </div>
           <form
-            className="flex flex-col items-center justify-center w-64 p-5 border rounded-md gap-2 h-full"
+            className="flex flex-col items-center justify-center w-56 p-5 border rounded-md gap-2 h-full"
             onSubmit={handleSubmit(onSubmit)}
           >
             {ticket?.status === "aberto" && (
@@ -88,14 +86,14 @@ export default function Ticket() {
                 <input
                   type="text"
                   placeholder="Nome do atendente"
-                  className="border border-gray-300 rounded-md px-2 py-1 w-full focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-transparent"
+                  className="border text-sm border-gray-300 rounded-md px-2 py-1 w-full focus:outline-none focus:ring-1 focus:ring-gray-500 focus:border-transparent"
                   {...register("resolutionBy", { required: true })}
                 />
                 {errors.resolutionBy && (
-                  <p className="text-red-500">Campo obrigatório</p>
+                  <p className="text-red-500 text-sm">Campo obrigatório</p>
                 )}
                 <select
-                  className="border px-3 py-1 rounded-md flex flex-row-reverse items-center justify-center gap-2 mb-5 text-gray-950 w-full"
+                  className="border px-3 py-1 rounded-md flex flex-row-reverse items-center text-sm justify-center gap-2 mb-5 text-gray-950 w-full"
                   {...register("status", { required: true })}
                 >
                   <option className="bg-green" value="pendente">
@@ -103,7 +101,7 @@ export default function Ticket() {
                   </option>
                 </select>
                 <select
-                  className="border px-3 py-1 rounded-md flex flex-row-reverse items-center justify-center gap-2 mb-5 text-gray-950 w-full"
+                  className="border px-3 py-1 rounded-md flex flex-row-reverse text-sm items-center justify-center gap-2 mb-5 text-gray-950 w-full"
                   {...register("resolutionStatus", { required: true })}
                 >
                   <option className="bg-green" value="em andamento">
@@ -115,7 +113,7 @@ export default function Ticket() {
             {ticket?.status === "pendente" && (
               <div>
                 <select
-                  className="border px-3 py-1 rounded-md flex flex-row-reverse items-center justify-center mb-2 text-gray-950"
+                  className="border px-3 py-1 rounded-md flex flex-row-reverse items-center text-sm justify-center mb-2 text-gray-950"
                   {...register("status", { required: true })}
                 >
                   <option className="bg-green" value="fechado">
@@ -123,7 +121,7 @@ export default function Ticket() {
                   </option>
                 </select>
                 <select
-                  className="border px-2 py-1 rounded-md flex flex-row-reverse items-center justify-center mb-2 text-gray-950 w-full"
+                  className="border px-2 py-1 rounded-md flex flex-row-reverse text-sm items-center justify-center mb-2 text-gray-950 w-full"
                   {...register("resolutionStatus", { required: true })}
                 >
                   <option className="bg-green" value="resolvido">
@@ -138,12 +136,12 @@ export default function Ticket() {
             {ticket?.status === "pendente" || ticket?.status === "aberto" ? (
               <button
                 type="submit"
-                className="bg-gray-950 text-gray-50 rounded-md px-2 py-1 w-32 focus:outline-none focus:border-transparent"
+                className="bg-gray-950 text-sm text-gray-50 rounded-md px-2 py-1 w-32 focus:outline-none focus:border-transparent"
               >
                 Enviar
               </button>
             ) : (
-              <p className="text-gray-900">Chamado finalizado</p>
+              <p className="text-gray-900  text-sm">Chamado finalizado</p>
             )}
           </form>
         </div>

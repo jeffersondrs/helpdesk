@@ -6,7 +6,7 @@ import { Plus } from "lucide-react";
 export default function Aside({ children }: { children: React.ReactElement }) {
   return (
     <main className="flex flex-row justify-center items-center h-screen w-full">
-      <aside className="flex flex-col justify-between items-center h-full w-80 bg-gray-950 border-r">
+      <aside className="flex flex-col justify-between items-center h-full w-96 bg-gray-950 border-r">
         <div className="w-full flex-1 p-5">
           <h1 className="text-2xl font-bold text-white py-5">Meus Tickets</h1>
           <div className="flex-1">
